@@ -2,7 +2,6 @@
 #Include %A_ScriptDir%\AutoHotkey\jumpme.ahk
 #Include %A_ScriptDir%\AutoHotkey\KeyFinder.ahk
 #Include %A_ScriptDir%\AutoHotkey\scrollhorizontal.ahk
-#Include %A_ScriptDir%\AutoHotkey\GetWinClass.ahk
 #Include %A_ScriptDir%\AutoHotkey\CopyOnSelect.ahk
 #Include %A_ScriptDir%\AutoHotkey\ReloadCtrlAltR.ahk
 ;#include %A_ScriptDir%\AutoHotkey\warframe.ahk
@@ -25,11 +24,16 @@ SetNumlockState, AlwaysOn
 
 ^!m::SoundSet, +1, , mute
 
-#IfWinActive, ahk_exe eso.exe
+#IfWinActive, ahk_class EsoClientWndClass
 ß::?
+#IfWinActive, ahk_class EsoClientWndClass
 !ß::\
+#IfWinActive, ahk_class EsoClientWndClass
+NumpadEnter::?
 
 #IfWinActive, ahk_exe notepad++.exe *32
+F10::^s
+#IfWinActive, ahk_exe notepad++.exe *641
 F10::^s
 
 return 
