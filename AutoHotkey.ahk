@@ -1,4 +1,4 @@
-#Include %A_ScriptDir%\AutoHotkey\run_or_open.ahk
+#Include %A_ScriptDir%\AutoHotkey\RunOrSwitchTo.ahk
 #Include %A_ScriptDir%\AutoHotkey\jumpme.ahk
 #include %A_ScriptDir%\AutoHotkey\CornerNotify.ahk
 
@@ -9,13 +9,13 @@
 Insert::Delete
 SetNumlockState, AlwaysOn
 
-; requires RunOrSwitchTo to be loaded
-#e::RunOrActivate("C:\Program Files\xplorer2_ult\xplorer2_64.exe", 					"xplorer2_64.exe")
-#n::RunOrActivate("C:\Program Files (x86)\Notepad++\notepad++.exe", 				"notepad++.exe")
-#s::RunOrActivate("C:\Users\ewa\AppData\Local\atom\Update.exe", 						"atom.exe")
-#f::RunOrActivate("C:\Program Files (x86)\Mozilla Firefox\firefox.exe", 		"firefox.exe")
-#c::RunOrActivate("C:\01_apps\Console2\Console.exe -t bash", 								"Console.exe")
+^y::Reload
 
+#e::RunOrActivate("C:\01_apps\xplorer2_ult\xplorer2_64.exe")
+#n::RunOrActivate("C:\Program Files (x86)\Notepad++\notepad++.exe")
+#s::RunOrActivate("C:\01_apps\Atom.lnk")
+#f::RunOrActivate("C:\Program Files (x86)\Mozilla Firefox\firefox.exe")
+#c::RunOrActivate("C:\01_apps\Console2\Console.exe -t bash")
 
 ^!m::SoundSet, +1, , mute
 
