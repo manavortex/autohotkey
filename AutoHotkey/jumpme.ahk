@@ -4,12 +4,12 @@
 #MaxThreadsPerHotkey 2
 
 f7::
-SplashTextOff  
-KeyWait, F7 ;<-- wait for key release
-TRunning := !TRunning ;<-- flag turns timer on and off
-If (!TRunning) ;<-- if the timer is turned off do nothing
+SplashTextOff  					;<-- turn off notification. Will be turned on again if the timer is running.
+KeyWait, F7 					;<-- wait for key release
+TRunning := !TRunning 				;<-- flag turns timer on and off
+If (!TRunning) 					;<-- if the timer is turned off do nothing
 return
-Gosub TimerF7 ;<-- otherwise send the space and make a new timer interval
+Gosub TimerF7 					;<-- otherwise send the space and make a new timer interval
 return
 
 TimerF7:
