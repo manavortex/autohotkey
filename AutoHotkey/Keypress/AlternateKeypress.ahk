@@ -1,5 +1,11 @@
 #NoEnv
 
+toggle_alternate() {
+ static t
+ t := !t
+ Return, t
+}
+
 _SendIt(Key)
 {  
 	Send, {%key% down}
@@ -10,11 +16,9 @@ _SendIt(Key)
 }
 
 
-
 AlternateKeypress(Key1, Key2)
 {
-
-   if (toggle())
+   if (toggle_alternate())
    {
 	 _SendIt(Key1)
    }
@@ -23,4 +27,3 @@ AlternateKeypress(Key1, Key2)
 	_SendIt(Key2)
 	}	
 }
-;Exit
