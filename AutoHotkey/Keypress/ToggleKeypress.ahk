@@ -1,13 +1,13 @@
 #NoEnv
 
-toggle() {
+toggle_keypress() {
  static t
  t := !t
  Return, t
 }
 
 ToggleButton(Key){
- if toggle() 
+ if toggle_keypress() 
  {
 	HoldButton(Key)
  }
