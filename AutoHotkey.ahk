@@ -1,3 +1,5 @@
+#SingleInstance force	
+
 SetWorkingDir, %A_ScriptDir%
 
 #Include AutoHotkey\RunOrSwitchTo.ahk
