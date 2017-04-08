@@ -1,8 +1,12 @@
-#Include %A_ScriptDir%\AutoHotkey\RunOrSwitchTo.ahk
-;#Include %A_ScriptDir%\AutoHotkey\jumpme.ahk
-;#include %A_ScriptDir%\AutoHotkey\CornerNotify.ahk
-#Include %A_ScriptDir%\AutoHotkey\KeepInsertOff.ahk
-#Include %A_ScriptDir%\AutoHotkey\BackspaceFolderUp.ahk
+SetWorkingDir, %A_ScriptDir%
+
+#Include AutoHotkey\RunOrSwitchTo.ahk
+#Include AutoHotkey\CornerNotify.ahk
+
+; Just for gaming :P
+;#Include AutoHotkey\jumpme.ahk
+;#Include AutoHotkey\KeyPress\AlternateKeypress.ahk
+;#Include AutoHotkey\KeyPress\ToggleKeypress.ahk
 
 ; ------------------------------------------------------------------------------------------
 ; --------------------- ! is alt ^ is ctrl # is windows + is shift  ------------------------
