@@ -7,8 +7,8 @@ SetWorkingDir, %A_ScriptDir%
 
 ; Just for gaming :P
 ;#Include AutoHotkey\jumpme.ahk
-;#Include AutoHotkey\KeyPress\AlternateKeypress.ahk
-;#Include AutoHotkey\KeyPress\ToggleKeypress.ahk
+#Include AutoHotkey\KeyPress\AlternateKeypress.ahk
+#Include AutoHotkey\KeyPress\ToggleKeypress.ahk
 
 ; ------------------------------------------------------------------------------------------
 ; --------------------- ! is alt ^ is ctrl # is windows + is shift  ------------------------
@@ -68,6 +68,16 @@ F1::
 ^V::
 SendInput {Raw}%clipboard%
 return
+#IfWinActive
+
+; ------------------------------------------------------------------------------------------
+; 			Andromeda - gaming example
+; ------------------------------------------------------------------------------------------
+#IfWinActive, ahk_exe MassEffectAndromeda.exe
+XButton1::ToggleButton("w")
+XButton2::e
+F13::AlternateKeypress("m", "Tab")
+F14::h
 #IfWinActive
 
 
