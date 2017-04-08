@@ -52,14 +52,14 @@ SetCapsLockState, AlwaysOff
 F10::^s
 F1::
 +Escape::
-
+#IfWinActive
 
 ; ------------------------------------------------------------------------------------------
 ; close notepad with ctrl-w
 ; ------------------------------------------------------------------------------------------
 #IfWinActive ahk_exe notepad.exe
 ^w::Send !{F4}
-
+#IfWinActive
 
 ; ---------------------------------------------
 ; paste to console with ctrl+v
