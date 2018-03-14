@@ -6,7 +6,7 @@
 ;       MS Outlook might have multiple windows open (main window and email
 ;       windows).  This parm allows activating a specific window.
 ; ===========================================================================
-RunOrActivate(Target, WinTitle = "")
+RunOrSwitchTo(Target, WinTitle = "")
 {
 	; Get the filename without a path
 	SplitPath, Target, TargetNameOnly
