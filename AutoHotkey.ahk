@@ -14,11 +14,22 @@ SetWorkingDir, %A_ScriptDir%
 ; --------------------- ! is alt ^ is ctrl # is windows + is shift  ------------------------
 ; ------------------------------------------------------------------------------------------
 
+MinMax()
+{
+WinGetPos, winWidth, winHeight, , , A  ; "A" to get the active window's pos.
+    if ( winWidth == -8 and winHeight == -8) {
+        WinRestore, A
+    } else
+    {
+        WinMaximize, A
+    }   
+}
 
 ; ------------------------------------------------------------------------------------------
-; Windows-M will minimize current window
+; Windows-H will minimize, Windows-M will maximize current window
 ; ------------------------------------------------------------------------------------------
-#m::WinMinimize, A 
+#m::MinMax()
+#h::WinMinimize, A
 
 ; ------------------------------------------------------------------------------------------
 ; Make sure that annoying toggle keys are fix
