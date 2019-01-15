@@ -1,111 +1,121 @@
-#SingleInstance force	
+; ==========================================================================================
+; Autorun part
+; ==========================================================================================
 
-SetWorkingDir, %A_ScriptDir%
+; Matchwindow titles by regex
+SetTitleMatchMode, 2
 
-#Include AutoHotkey\RunOrSwitchTo.ahk
-#Include AutoHotkey\CornerNotify.ahk
+SetNumlockState, 		  AlwaysOn
+SetCapsLockState, 		AlwaysOff
+DetectHiddenWindows, 	On
 
-; Just for gaming :P
-;#Include AutoHotkey\jumpme.ahk
-#Include AutoHotkey\KeyPress\AlternateKeypress.ahk
-#Include AutoHotkey\KeyPress\ToggleKeypress.ahk
+; where should the windows explorer open by default?
+explorerpath:= "explorer /select," userFolder
+
+; automatically overwrite this script upon launching
+#SingleInstance force
+#NoEnv 			    ; Recommended for performance and compatibility with future AutoHotkey releases.
+SendMode Input 	; Recommended for new scripts due to its superior speed and reliability.
+
+; ==========================================================================================
+; Groups
+; ==========================================================================================
+
+; Send Alt+F4 upon Ctrl+W in those applications:
+GroupAdd, 				CloseWithCtrlW, Greenshot
+GroupAdd, 				CloseWithCtrlW, ahk_exe 	  explorer.exe
+GroupAdd, 				CloseWithCtrlW, ahk_exe 	  notepad.exe			; notepad
+GroupAdd, 				CloseWithCtrlW, ahk_exe 	  regedit.exe			; regedit
+GroupAdd, 				CloseWithCtrlW, ahk_class 	FM				      ; 7zip
+GroupAdd,				  CloseWithCtrlW, ahk_class 	TfcSearchForm		; FreeCommander search form		
+GroupAdd,				  CloseWithCtrlW, ahk_exe     fontview.exe		;
+GroupAdd,				  CloseWithCtrlW, ahk_exe     Monosnap.exe		;
+
+; These apps can be used to edit *.ahk-files, reload on ctrl+y:
+GroupAdd, 				EditAhkFile,    ahk_class 		Notepad++				
+GroupAdd, 				EditAhkFile,    ahk_class 		Notepad		
+GroupAdd, 				EditAhkFile,    ahk_exe 		  SciTE.exe
+
+
+#Include %A_ScriptDir%\Autohotkey\00_gaming.ahk
+
+; ==========================================================================================
+; RunOrSwitchTo, can't live without
+; ==========================================================================================
+
+#Include %A_ScriptDir%\Autohotkey\RunOrSwitchTo.ahk
+
+#n::RunOrSwitchTo("C:\Program Files (x86)\Notepad++\notepad++.exe", "ahk_exe notepad++.exe")
+#e::RunOrSwitchTo("C:\Program Files\FreeCommander XE\FreeCommander.exe", "ahk_exe FreeCommander.exe")
+#f::RunOrSwitchTo("C:\Program Files\Firefox Developer Edition\firefox.exe", "Firefox Developer Edition")
+#^c::RunOrSwitchTo("C:\01_apps\Console2\Console.exe")
+#c::RunOrSwitchTo("C:\01_apps\Console2\Console.exe" -t bash)
+!^+n::RunOrSwitchTo("C:\Program Files (x86)\Evernote\Evernote\Evernote.exe")
+
+
+
+; ------------------------------------------------------------------
+;				! is alt ^ is ctrl # is windows + is shift
+; ------------------------------------------------------------------
+
+#m::WinMaximize, A 	; Windows-M will maximize current window
+!h::WinMinimize, A 	; Alt-H will minimize current window
+
+Insert::Delete      ; disable annoying delete
+Capslock::<         ; Make capslock serve as <> key
++Capslock::>        ; Make capslock serve as <> key
++Alt::              ; Disable input language switch
+#Space::            ; Disable language switch
+!+::                ; Disable Screen Magnifier
+
+^!#n::#+e		        ; evernote
+
+
+; ------------------------------------------------------------------
+; 			Notepad ++
+; ------------------------------------------------------------------
+#IfWinActive, ahk_class Notepad++
+	F10::^s
+	F11::return
+	F12::return
+	^e::return
+	F1::return
+	+esc::return
+#IfWinActive
 
 ; ------------------------------------------------------------------------------------------
-; --------------------- ! is alt ^ is ctrl # is windows + is shift  ------------------------
+; close with ctrl-w
+; ------------------------------------------------------------------------------------------
+#IfWinActive, ahk_group CloseWithCtrlW
+	; ^w::Send !{F4}  
+	^w::WinClose A
+#IfWinActive
+ 
+
+; ------------------------------------------------------------------------------------------
+; when editing an *.ahk: Ctrl+Shift+R: Reload - requires first line SetTitleMatchMode, 2
 ; ------------------------------------------------------------------------------------------
 
-MinMax()
-{
-WinGetPos, winWidth, winHeight, , , A  ; "A" to get the active window's pos.
-    if ( winWidth == -8 and winHeight == -8) {
-        WinRestore, A
-    } else
-    {
-        WinMaximize, A
-    }   
+ReloadThis() 
+{				
+	SetTitleMatchMode, 2
+	#IfWinActive, ahk
+	TrayTip, Reloading..., Autohotkey-Script reloading, 20, 170
+	Sleep, 200
+	TrayTip
+	Reload
+	#IfWinActive
 }
-
-; ------------------------------------------------------------------------------------------
-; Windows-H will minimize, Windows-M will maximize current window
-; ------------------------------------------------------------------------------------------
-#m::MinMax()
-#h::WinMinimize, A
-
-; ------------------------------------------------------------------------------------------
-; Make sure that annoying toggle keys are fix
-; ------------------------------------------------------------------------------------------
-Insert::Delete
-SetNumlockState, AlwaysOn
-SetCapsLockState, AlwaysOff
+SetTitleMatchMode, 2 	
 
 
-; ------------------------------------------------------------------------------------------
-; windows+key opens program
-; requires RunOrSwitchTo.ahk to be loaded
-; ------------------------------------------------------------------------------------------
-#n::RunOrActivate("C:\Program Files (x86)\Notepad++\notepad++.exe")
-#f::RunOrActivate("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe")
-;#c::RunOrActivate("C:\01_apps\Console2\Console.exe -t bash")
 
-
-; ------------------------------------------------------------------------------------------
-; alt-shift-d opens download folder
-; opens explorer on c drive
-; ------------------------------------------------------------------------------------------
-!+d::Run, explore "%userprofile%\Downloads"
-#e::Run explorer.exe "%userprofile%"
-
-; ------------------------------------------------------------------------------------------
-; suppress f10 and f1 and shift+esc on notepad++
-; ------------------------------------------------------------------------------------------
-#IfWinActive, ahk_exe notepad++.exe *32
-F10::^s
-F1::
-+Escape::
+#IfWinActive, ahk_group EditAhkFile	
+	^+y::ReloadThis()
+	^!y::ReloadThis()
+	^!r::ReloadThis()
+	^+r::ReloadThis()
 #IfWinActive
-
-; ------------------------------------------------------------------------------------------
-; close notepad with ctrl-w
-; ------------------------------------------------------------------------------------------
-#IfWinActive ahk_exe notepad.exe
-^w::Send !{F4}
-#IfWinActive
-
-; ---------------------------------------------
-; paste to console with ctrl+v
-; ---------------------------------------------
-#IfWinActive ahk_class ConsoleWindowClass
-^V::
-SendInput {Raw}%clipboard%
-return
-#IfWinActive
-
-; ------------------------------------------------------------------------------------------
-; 			Andromeda - gaming example
-; ------------------------------------------------------------------------------------------
-#IfWinActive, ahk_exe MassEffectAndromeda.exe
-XButton1::ToggleButton("w")
-XButton2::e
-F13::AlternateKeypress("m", "Tab")
-F14::h
-#IfWinActive
-
-
-; ------------------------------------------------------------------------------------------
-; search clipboard in google on ctrl-alt-c
-; ------------------------------------------------------------------------------------------
-^!c::
-{
-Send, ^c
-Sleep 50
-Run, http://www.google.com/search?q=%clipboard%
-Return
-}
-
-; ------------------------------------------------------------------------------------------
-; reload with ctrl+alt+y
-; ------------------------------------------------------------------------------------------
-!^y::Reload
 
 ; ------------------------------------------------------------------------------------------
 ; uncomment for debug - alt-Y for key history
