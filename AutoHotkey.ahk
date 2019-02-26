@@ -50,9 +50,6 @@ return
 #Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\Eclipse.ahk
 #Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\EclipseWindow.ahk
 
-; Include Console hotkeys
-; #Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\Console.ahk
-
 ; Include OneNote hotkeys
 #Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\OneNote.ahk
 #Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\SwitchKeyboardLanguage.ahk
@@ -332,11 +329,24 @@ SetTitleMatchMode, 2 ; match start of the title
 	^v::SendInput {Raw}%clipboard%
 #IfWinActive
 
+SendToControl() {
+    WinGet, Items, ControlList, A
+    lastItem:=
+    Loop, Parse, Items, `n
+    {
+        ControlGetText, theText, %A_LoopField%
+        IfInString, theText, Console
+        {  
+            lastItem:=A_LoopField
+        }
+    }
+    ControlClick, %lastItem%, A,, M
+}
 #IfWinActive, ahk_exe Console.exe
     SetTitleMatchMode, RegEx
     IfWinActive, ^Console$
     {
-        ^v::ControlClick, Console_2_View1, A,, M
+        ^v::SendToControl()
     }  
     SetTitleMatchMode, 2
 #IfWinActive
