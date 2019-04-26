@@ -1,5 +1,22 @@
 #NoEnv
 
+
+; Games without auto-run button, so make XButton 1 toggle W
+GroupAdd,				  AutoRun, 		    ahk_exe DragonAgeInquisition.exe
+GroupAdd,				  AutoRun, 		    ahk_exe MassEffectAndromeda.exe
+GroupAdd,				  AutoRun, 		    ahk_exe MassEffect3.exe
+GroupAdd,				  AutoRun, 		    ahk_exe MonsterHunterWorld.exe
+GroupAdd,				  AutoRun, 		    ahk_exe ShooterGame.exe
+
+
+; Games without secondary key bindings, so make XButton 2 press E
+GroupAdd,				  ButtonTwoE, 		ahk_exe MassEffectAndromeda.exe
+GroupAdd,				  ButtonTwoE, 		ahk_exe MassEffect3.exe
+GroupAdd,				  ButtonTwoE, 		ahk_exe MonsterHunterWorld.exe
+GroupAdd,				  ButtonTwoE, 		ahk_exe eso64.exe
+GroupAdd,				  ButtonTwoE, 		ahk_exe ShooterGame.exe
+GroupAdd,				  ButtonTwoE, 		ahk_exe ACU.exe
+
 ; ------------------------------------------------------------------
 ;				! is alt ^ is ctrl # is windows + is shift
 ; ------------------------------------------------------------------
@@ -44,13 +61,10 @@
 	q::ToggleButton("w")
   End::stopRunningAndPress("m")
   ^y::PressButton("s", 50)
-  ^+y::BuyAll()
+  ^+y::BuyMany(20)
   ~RButton::
-
     If (A_TimeSincePriorHotkey<400) and (A_TimeSincePriorHotkey<>-1)
-
      SendInput, { Esc }
-
     Return
 #IfWinActive
 
@@ -76,7 +90,13 @@
 	PgDn::Space
 #IfWinActive
 
-
+ 
+; ------------------------------------------------------------------
+; 			Splinter Cell Blacklist
+; ------------------------------------------------------------------
+#IfWinActive, ahk_exe Blacklist_DX11_game.exe
+	#::Return
+#IfWinActive
 
 ; ------------------------------------------------------------------
 ; 				ESO
@@ -93,20 +113,6 @@ IfWinActive ahk_class EsoClientWndClass
 
 
 
-; Games without auto-run button, so make XButton 1 toggle W
-GroupAdd,				  AutoRun, 		    ahk_exe DragonAgeInquisition.exe
-GroupAdd,				  AutoRun, 		    ahk_exe MassEffectAndromeda.exe
-GroupAdd,				  AutoRun, 		    ahk_exe MassEffect3.exe
-GroupAdd,				  AutoRun, 		    ahk_exe MonsterHunterWorld.exe
-GroupAdd,				  AutoRun, 		    ahk_exe ShooterGame.exe
-
-
-; Games without secondary key bindings, so make XButton 2 press E
-GroupAdd,				  ButtonTwoE, 		ahk_exe MassEffectAndromeda.exe
-GroupAdd,				  ButtonTwoE, 		ahk_exe MassEffect3.exe
-GroupAdd,				  ButtonTwoE, 		ahk_exe MonsterHunterWorld.exe
-GroupAdd,				  ButtonTwoE, 		ahk_exe eso64.exe
-GroupAdd,				  ButtonTwoE, 		ahk_exe ShooterGame.exe
 
 
 ; ------------------------------------------------------------------------------------------
@@ -155,8 +161,8 @@ PressButton(key, times) {
   }
 }
 
-BuyAll() { 
-  Loop 20
+BuyMany(times) { 
+  Loop %times%
   {
     PressButton("Space", 10)
     Sleep, 50
