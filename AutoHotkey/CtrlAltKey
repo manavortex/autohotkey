@@ -1,0 +1,9 @@
+~LCtrl Up::
+{
+  ;msgbox %A_PriorKey%
+  if (A_PriorKey = "LControl")
+  {
+    Send {Numpad8}
+  }
+}
+return
