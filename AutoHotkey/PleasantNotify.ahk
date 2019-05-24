@@ -5,8 +5,8 @@ PleasantNotify(title, message, pnW=700, pnH=300, position="b r", time=10) {
 	PN_hwnd := WinExist()
 	WinSet, ExStyle, +0x20
 	WinSet, Transparent, 0
-	Gui, Notify: Color, 0xF2F2F0
-	Gui, Notify: Font, c0x07D82F s18 wBold, Segoe UI
+	Gui, Notify: Color, 0x262626
+	Gui, Notify: Font, c0xd8d8d8 s18 wBold, Segoe UI
 	Gui, Notify: Add, Text, % " x" 20 " y" 12 " w" pnW-20 " vpn_title", % title
 	Gui, Notify: Font, cBlack s15 wRegular
 	Gui, Notify: Add, Text, % " x" 20 " y" 56 " w" pnW-20 " h" pnH-56 " vpn_msg", % message
