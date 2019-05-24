@@ -259,10 +259,11 @@ SendWithSleeps( string, delay=100 ) {
 ; ------------------------------------------------------------------------------------------
 ReloadThis() 
 {	
-	TrayTip, Reloading..., Autohotkey-Script reloading, 20, 170
-	Run, %USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\00_start_autohotkey.bat
-	Sleep, 200
-	TrayTip
+	Reload
+	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
+	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
+	IfMsgBox, Yes, Edit
+	return	
 }
 ;	^+y::ReloadThis()
 ;	^!y::ReloadThis()
