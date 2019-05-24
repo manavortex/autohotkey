@@ -45,6 +45,7 @@ return
 ; automatically overwrite this script upon launching
 #SingleInstance force
 
+PleasantNotify("AutoHotkey reloaded", "" , 330, 80, "b r", "2")
 
 ; Include Eclipse hotkeys
 #Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\Eclipse.ahk
