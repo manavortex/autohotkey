@@ -260,9 +260,9 @@ SendWithSleeps( string, delay=100 ) {
 ReloadThis() 
 {	
 	TrayTip, Reloading..., Autohotkey-Script reloading, 20, 170
+	Run, %USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\00_start_autohotkey.bat
 	Sleep, 200
 	TrayTip
-	Reload
 }
 ;	^+y::ReloadThis()
 ;	^!y::ReloadThis()
