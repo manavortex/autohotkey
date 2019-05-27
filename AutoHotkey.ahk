@@ -2,6 +2,8 @@
 ; Autorun part
 ; ==========================================================================================
 
+SetWorkingDir %A_ScriptDir%
+
 ; Matchwindow titles by regex
 SetTitleMatchMode,  2
 SetTitleMatchMode,  slow
@@ -48,13 +50,13 @@ return
 PleasantNotify("AutoHotkey reloaded", "" , 330, 80, "b r", "2")
 
 ; Include Eclipse hotkeys
-#Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\Eclipse.ahk
-#Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\EclipseWindow.ahk
+#Include %A_ScriptDir%\AutoHotkey\Eclipse.ahk
+#Include %A_ScriptDir%\AutoHotkey\PleasantNotify.ahk
 
 ; Include OneNote hotkeys
-#Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\OneNote.ahk
-#Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\SwitchKeyboardLanguage.ahk
-#Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\NppToggleSearchPane.ahk
+#Include %A_ScriptDir%\AutoHotkey\OneNote.ahk
+#Include %A_ScriptDir%\AutoHotkey\SwitchKeyboardLanguage.ahk
+#Include %A_ScriptDir%\AutoHotkey\NppToggleSearchPane.ahk
 
 #NoEnv 				; Recommended for performance and compatibility with future AHK releases
 SendMode Input 		; Recommended for new scripts due to its superior speed and reliability 
@@ -90,7 +92,7 @@ MinMax()
 	if c >= 2
 	{
     		WinClose A
-		RunOrSwitchTo("C:\Program Files (x86)\FreeCommander XE\FreeCommander.exe", "FreeCommander")
+		RunOrSwitchTo("%programfiles(x86)%\FreeCommander XE\FreeCommander.exe", "FreeCommander")
 	}
 	 ^l::!d
 #IfWinActive
@@ -114,7 +116,7 @@ MinMax()
 		Return
 	}
  	WinClose A
-	RunOrSwitchTo("C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE")
+	RunOrSwitchTo("%programfiles%\Microsoft Office\Office16\OUTLOOK.EXE")
 #IfWinActive
 
 Capslock::<
@@ -156,21 +158,17 @@ focusLync()
 ; windows+key opens program
 ; requires RunOrSwitchTo.ahk to be loaded
 ; ------------------------------------------------------------------------------------------
-#Include C:\Users\wnksbxb\Documents\02_scripts\AutoHotkey\RunOrSwitchTo.ahk
+#Include %A_ScriptDir%\AutoHotkey\RunOrSwitchTo.ahk
 
-#n::RunOrSwitchTo("C:\Users\wnksbxb\Applications\Notepad++\notepad++.exe")                                        ; win+n         notepad++
-#i::RunOrSwitchTo("C:\Program Files (x86)\Integrity\IntegrityClient11_SWE\bin\integrityg.exe")                          ; win+i         integrity
-#!n::RunOrSwitchTo("C:\Program Files (x86)\Microsoft Office\Office14\ONENOTE.EXE")                                      ; win+alt+n     onenote
-#c::RunOrSwitchTo("C:\Users\wnksbxb\Applications\Console2\Console.exe", "Console", " -t Console")                                 ; win+c         console
-#f::RunOrSwitchTo("C:\Users\wnksbxb\AppData\Local\Firefox Developer Edition\firefox.exe", "Firefox Developer Edition")  ; win+f         firefox
-#+e::RunOrSwitchTo("C:\Users\wnksbxb\Applications\eclipse\eclipse.exe")                                                 ; win+shift+e   eclipse
-#+x::RunOrSwitchTo("C:\Program Files (x86)\Microsoft Office\Office14\EXCEL.exe")                                        ; win+shift+x   excel
-#e::RunOrSwitchTo("C:\Program Files (x86)\FreeCommander XE\FreeCommander.exe", "FreeCommander")                         ; win+e         freecommander
-#+r::RunOrSwitchTo("C:\Users\wnksbxb\Applications\riot\Riot.exe")                                                                 ; win+shift+r   riot                            
-#o::RunOrSwitchTo("C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE")                                       ; win+o         outlook
-#+p::RunOrSwitchTo("C:\Users\wnksbxb\Applications\ProcessExplorer\procexp64.exe")                                                 ; win+shift+p   sysinternals process explorer
+#n::RunOrSwitchTo("%programfiles(x86)%\Notepad++\notepad++.exe")                                        							; win+n         notepad++ 
+#!n::RunOrSwitchTo("%programfiles%\Microsoft Office\Office16\ONENOTE.EXE")                                      					; win+alt+n     onenote
+#c::RunOrSwitchTo("C:\01_apps\Console2\Console.exe", "Console", " -t Console")                                 					; win+c         console
+#f::RunOrSwitchTo("%APPDATA%\..\Local\Firefox Developer Edition\firefox.exe", "Firefox Developer Edition")  				    ; win+f         firefox
+#+x::RunOrSwitchTo("%programfiles%\Microsoft Office\Office16\EXCEL.exe")                                        					; win+shift+x   excel
+#e::RunOrSwitchTo("%programfiles(x86)%\FreeCommander XE\FreeCommander.exe", "FreeCommander")                         			; win+e         freecommander
+#+r::RunOrSwitchTo("%USERPROFILE%\Applications\riot\Riot.exe")                                                                 		; win+shift+r   riot
+#o::RunOrSwitchTo("%programfiles%\Microsoft Office\Office16\OUTLOOK.EXE")                                       					; win+o         outlook
 
-#+z::focusZeuss()                                                                                                       ; win+shift+z   zeuss
 #g::                                                                                                                    ; win+g         disable game bar, do nothing
 #q::focusLync()
 
@@ -179,11 +177,10 @@ focusLync()
 ; alt-shift-d opens download folder
 ; opens explorer on c drive
 ; ------------------------------------------------------------------------------------------
-; !+d::Run, explore "C:\Users\wnksbxb\Downloads"
-#+d::Run, explore "C:\Users\wnksbxb\Downloads"
-#^d::Run, explore "C:\Users\wnksbxb\Documents"
-#+g::Run, explore "C:\Users\wnksbxb\git"
-#+w::Run, explore "d:\_ws"
+; !+d::Run, explore "%USERPROFILE%\Downloads"
+#+d::Run, explore "%USERPROFILE%\Downloads"
+#^d::Run, explore "%A_ScriptDir%"
+#+g::Run, explore "%USERPROFILE%\git" 
 
 ; ------------------------------------------------------------------------------------------
 ; Notepad++
