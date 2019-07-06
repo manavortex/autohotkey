@@ -6,7 +6,6 @@ RunOrSwitchTo(Target, WinTitle = "", Args = "")
    ; Process returns the PID of a matching process exists, or 0 otherwise
    Process, Exist, %TargetNameOnly%
    
-
     OutputDebug, [%A_ScriptName%] RunOrSwitchTo: %Target%, %WinTitle%
    
    ; Get the PID and the class if the process is already running
@@ -17,12 +16,14 @@ RunOrSwitchTo(Target, WinTitle = "", Args = "")
    }
    ; Run the program if the process is not already running
    Else
-	  RunWait, "%Target%" "%Args%", , , PID
-
-   ; At least one app  wouldn't always become the active
-   ; window after using Run, so we always force a window activate.
-   ; Activate by title if given, otherwise use class ID. Activating by class ID 
-   ; appears more robust for switching than using PID.
+	if (Args = "") 
+		RunWait, Target, , , PID
+	else
+		RunWait, "%Target%" "%Args%", , , PID
+    
+	
+   ; At least one app  wouldn't always become the active window after using Run, so we always force a window activate.
+   ; Activate by title if given, otherwise use class ID. Activating by class ID appears more robust for switching than using PID.
    If WinTitle <>
    {
       SetTitleMatchMode, 2
