@@ -1,10 +1,14 @@
-RunOrSwitchTo(Target, WinTitle = "")
+RunOrSwitchTo(Target, WinTitle = "", Args = "")
 {
    ; Get the filename without a path
    SplitPath, Target, TargetNameOnly
 
    ; Process returns the PID of a matching process exists, or 0 otherwise
    Process, Exist, %TargetNameOnly%
+   
+
+    OutputDebug, [%A_ScriptName%] RunOrSwitchTo: %Target%, %WinTitle%
+   
    ; Get the PID and the class if the process is already running
    If ErrorLevel > 0
    {
@@ -13,7 +17,7 @@ RunOrSwitchTo(Target, WinTitle = "")
    }
    ; Run the program if the process is not already running
    Else
-      Run, %Target%, , , PID
+	  RunWait, "%Target%" "%Args%", , , PID
 
    ; At least one app  wouldn't always become the active
    ; window after using Run, so we always force a window activate.
