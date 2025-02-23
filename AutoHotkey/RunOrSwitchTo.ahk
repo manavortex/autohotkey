@@ -1,7 +1,13 @@
+; ===========================================================================
+; Run a program or switch to it if already running.
+; Courtesy of https://autohotkey.com/board/topic/7129-run-a-program-or-switch-to-an-already-running-instance/
+;    Target - Program to run. E.g. Calc.exe or C:\Progs\Bobo.exe
+;    WinTitle - Optional title of the window to SwitchTo.  Programs like
+;       MS Outlook might have multiple windows open (main window and email
+;       windows).  This parm allows activating a specific window.
+; ===========================================================================
 
-GroupAdd("DontMaximizeMe", "ahk_exe Console.exe")
-GroupAdd("DontMaximizeMe", "ahk_exe ConEmu64.exe")
-GroupAdd("DontMaximizeMe", "ahk_exe chrome.exe")
+SetTitleMatchMode 2          ; Match title of windows by part of the name
 
 LaunchProgramIfNotRunning(Target, WinTitle, Args)
 {
