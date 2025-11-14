@@ -153,6 +153,10 @@ return
    ^+!s::Send("{f20}")
 #HotIf 
  
+
+; ------------------------------------------------------------------------------------------
+; Everything but Notepad++
+; ------------------------------------------------------------------------------------------
 #HotIf !WinActive("ahk_class Notepad++",)
 		; Japanese letters
 		!^Numpad1::Send("{U+0100}") ;Ā
@@ -166,6 +170,14 @@ return
 #HotIf 
  
 
+; ------------------------------------------------------------------------------------------
+; Notepad++
+; ------------------------------------------------------------------------------------------
+ #HotIf WinActive("ahk_exe notepad++.exe", )
+	^+h::	Send("^+{ f }")
+	<!Up::Send("^+{Up}")
+	<!Down::Send("^+{Down}")
+ #HotIf
 
 
 ; ------------------------------------------------------------------------------------------
@@ -175,12 +187,17 @@ return
 MinMax()
 {
     WinState := WinGetMinMax("A")
-    if (WinState = 0) {
-        WinMaximize("A")
-        return
+	
+	if !WinActive("ahk_exe ConEmu64.exe")
+	{	
+		if (WinState = 0) {
+			WinMaximize("A")
+			return
+		}
     }
     WinRestore("A")
 }
+
 
 
 #HotIf WinActive("ahk_exe explorer.exe", )
@@ -324,13 +341,6 @@ ReloadThis()
 	^+f::	Send("^{ e }")
  #HotIf
 
-; ------------------------------------------------------------------------------------------
-; Notepad++
-; ------------------------------------------------------------------------------------------
- #HotIf WinActive("ahk_exe notepad++.exe", )
-	^d::	Send("^+{ d }")
-	^+h::	Send("^+{ f }")
- #HotIf
 
 ; ------------------------------------------------------------------------------------------
 ; Explorer
@@ -365,4 +375,5 @@ ReloadThis()
     Send("{NumpadEnter}")
     MouseMove(xpos, ypos)
   }
+
 #HotIf
